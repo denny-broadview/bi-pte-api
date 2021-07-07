@@ -25,6 +25,23 @@ Route::get('/', function () use ($router) {
 //     //return view('welcome');
 // });
 
-// $router->post('demo-test',  ['uses' => 'UsersController@demoTest']);
-Route::get('video', ['uses' => 'VideosController@index']);
-Route::get('predictionfiles', ['uses' => 'PredictionFilesController@index']);
+// $router->group(['prefix' => 'api/'], function () use ($router){
+	// $router->post('demo-test',  ['uses' => 'UsersController@demoTest']);
+	Route::post('login', ['uses' => 'UsersController@login']);
+	Route::post('forget-password',  ['uses'=>'UsersController@forgetPassword']);
+// });
+$router->group(['middleware'=>'auth'], function () use ($router){
+	Route::post('certificates', ['uses' => 'CertificatesController@getCertificate']);
+
+	Route::post('getTest', ['uses' => 'TestsController@getTest']);
+	Route::post('getCompletedPendingTest', ['uses' => 'TestsController@getCompletedPendingTest']);
+
+	Route::post('testResults', ['uses' => 'TestResultsController@getTestResult']);
+
+	Route::post('sections', ['uses' => 'SectionsController@getSection']);
+	Route::post('sectionsDesign', ['uses' => 'SectionsController@sectionWiseDesign']);
+
+	Route::post('video', ['uses' => 'VideosController@getVideo']);
+
+	Route::post('predictionfiles', ['uses' => 'PredictionFilesController@getPrediction']);
+});

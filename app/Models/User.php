@@ -19,8 +19,29 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'role_id',
+        'parent_user_id',
+        'first_name',
+        'last_name',
+        'name',
+        'email',
+        'password',
+        'mobile_no',
+        'date_of_birth',
+        'profile_image',
+        'ip_address',
+        'latitude',
+        'longitude',
+        'gender',
+        'country_citizen',
+        'country_residence',
+        'validity',
+        'state',
+        'state_code',
+        'gstin',
+        'status',		'token',
     ];
+
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -30,4 +51,26 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    protected $appends = ['fullname'];
+
+    public function institue()
+    {
+        return $this->hasOne(Institues::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Roles::class,'id');
+    }
+
+    public function userSubscriptions()
+    {
+        return $this->hasMany('App\Models\userSubscriptions');
+    }
+
+    public function getFullnameAttribute($value)
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 }

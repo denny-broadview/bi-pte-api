@@ -35,8 +35,15 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+        // if ($this->auth->guard($guard)->guest()) {
+        //     return response('Unauthorized.', 401);
+        // }
+
+        // return $next($request);
+         if ($this->auth->guard($guard)->guest()) {
+            // return response('Unauthorized.', 401);
+            // return $this->response("TOKEN_EXPIRED", 200, false);
+            return response()->json(["data" => false,"status_code" => 200,"message" => "TOKEN_EXPIRED"]);
         }
 
         return $next($request);
