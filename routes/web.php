@@ -28,6 +28,7 @@ Route::get('/', function () use ($router) {
 // $router->group(['prefix' => 'api/'], function () use ($router){
 	// $router->post('demo-test',  ['uses' => 'UsersController@demoTest']);
 	Route::post('login', ['uses' => 'UsersController@login']);
+	Route::post('getSubscription', ['uses' => 'SubscriptionsController@getSubscription']);
 	Route::post('forget-password',  ['uses'=>'UsersController@forgetPassword']);
 // });
 $router->group(['middleware'=>'auth'], function () use ($router){
