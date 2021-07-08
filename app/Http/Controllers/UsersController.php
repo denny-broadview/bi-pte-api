@@ -39,7 +39,29 @@ class UsersController extends Controller
         }else{
             return $this->response("UserId or Password wrong");
         }
-    }	public function forgetPassword(Request $request){    		$this->validate($request, [    				'email' => 'required'	      ]);			$user = User::where(['email' => $request->email])->first();			      if (!empty($user)) {				$this->configSMTP();				$verification_token = substr( str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"), 0, 20 );				$authentication = User::updateOrCreate(['email' => $request->email],[										  'token' => $verification_token									]);				$data = [					'name'=>$user->first_name.' '.$user->last_name,						'verification_token'=>$verification_token,						'email'=>$request->email,						'app_url'=>env('APP_URL')				];								try{				  Mail::to($request->email)->send(new ForgetPasswordMail($data));  				}catch(\Exception $e){				  $msg = $e->getMessage();				  return $this->response($msg,200,false);				} 			  return $this->response("Email send successfully for forget password!");			}else{				return $this->response("Email address not valid..!");			}    }
+    }	
+	public function forgetPassword(Request $request){    		
+			$this->validate($request, [    				'email' => 'required'	      ]);			
+			$user = User::where(['email' => $request->email])->first();			      
+			if (!empty($user)) {				
+				$this->configSMTP();				
+				$verification_token = substr( str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"), 0, 20 );				
+				$authentication = User::updateOrCreate(['email' => $request->email],['token' => $verification_token]);				
+				$data = ['name'=>$user->first_name.' '.$user->last_name,
+				'verification_token'=>$verification_token,
+				'email'=>$request->email,
+				'app_url'=>env('APP_URL')];								
+				try{				  
+					Mail::to($request->email)->send(new ForgetPasswordMail($data));  				
+				}catch(\Exception $e){				  
+					$msg = $e->getMessage();				  
+					return $this->response($msg,200,false);				
+				} 			  
+				return $this->response("Email send successfully for forget password!");			
+			}else{				
+				return $this->response("Email address not valid..!");			
+			}    
+	}
 
     
 }?>
