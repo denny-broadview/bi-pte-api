@@ -30,6 +30,15 @@ class TestResults extends Model
         return  $this->belongsTo('App\Models\QuestionTypes', 'question_type_id');
     }
 
+    public function questionCorrectAnswer(){
+        return  $this->belongsTo('App\Models\Answerdata', 'question_id','question_id');
+    }
+
+    public function questionStudentAnswer(){
+        return  $this->belongsTo('App\Models\StudentsAnswerData', 'question_id','question_id');
+    }
+    
+
     public function question() 
     {
         return  $this->belongsTo('App\Models\Questions', 'question_id');

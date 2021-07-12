@@ -18,4 +18,13 @@ class Notifications extends Model
         'url',
         'is_read'
     ];
+
+    public function senderDetails(){
+        return  $this->belongsTo('App\Models\User', 'sender_id','id');
+    }
+    
+    public function user() 
+    {
+        return  $this->belongsTo('App\Models\User', 'user_id');
+    }
 }

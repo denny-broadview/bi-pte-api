@@ -50,7 +50,14 @@ class SectionsController extends Controller
         
         
         return $this->response("Section wise design List",true,200,$data);
-    }	public function getSectionTestResult()    {		$data = Sections::with(['taskResult.questions','taskResult.question_type'])->get();		    	return $this->response("Section List",true,200,$data);    }
+    }	
+
+    public function getSectionTestResult()    
+    {		
+
+        $data = Sections::with(['taskResult.questions','taskResult.question_type'])->get();		    	
+        return $this->response("Section List",true,200,$data);    
+    }
 
 }
 

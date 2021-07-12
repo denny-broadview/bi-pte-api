@@ -38,7 +38,75 @@ class TestResultsController extends Controller
         $data = TestResults::with(['test','subject','user'])->where("user_id",$user_id)->latest()->paginate(10);
         return $this->response("Student Result List",true,200,$data);   
     }
-	 public function getStudentResults(Request $request)    {    	$user_id = $request->input('user_id');		$type = $request->input('type');        $this->validate($request, [            'user_id' => 'required',			'type' => 'required'        ]);		if($type=='ALL'){			$getdata = StudentTests::with(['test'])->where("user_id",$user_id)->where("status",'C')->orderBy('id','desc')->get();			foreach ($getdata as $key => $row) {				$gdata=$row->test;				$question_count = Questions::with(['getsection'])->selectRaw('section_id,count(id) as total')->where('test_id',$gdata->id)->groupBy('section_id')->get();				$gdata->question_count=$question_count;				$getdata[$key]->test=$gdata;			}		}else{			$getdata = StudentTests::join('generate_tests', 'generate_tests.id', '=', 'student_tests.test_id')->where("generate_tests.type",$type)->where("student_tests.user_id",$user_id)->where("student_tests.status",'C')->orderBy('student_tests.id','desc')->get();			foreach ($getdata as $key => $row) {				$gdata=$row->test;				$question_count = Questions::with(['getsection'])->selectRaw('section_id,count(id) as total')->where('test_id',$gdata->id)->groupBy('section_id')->get();				$gdata->question_count=$question_count;				$getdata[$key]->test=$gdata;			}					}    	return $this->response("Result List",true,200,$getdata);    }
+
+	public function getStudentResults(Request $request)    {    	
+        $user_id = $request->input('user_id');		
+        $type = $request->input('type');        
+        $this->validate($request, [            
+            'user_id' => 'required',			
+            'type' => 'required'        
+        ]);	
+
+        if($type=='ALL'){			
+            $getdata = StudentTests::with(['test'])
+            ->where("user_id",$user_id)
+            ->where("status",'C')
+            ->orderBy('id','desc')->get();			
+
+            foreach ($getdata as $key => $row) {				
+                $gdata = $row->test;			
+
+                $question_count = Questions::with(['getsection'])
+                ->selectRaw('section_id,count(id) as total')
+                ->where('test_id',$gdata->id)
+                ->groupBy('section_id')->get();				
+
+                $gdata->question_count=$question_count;				
+                $getdata[$key]->test=$gdata;			
+            }		
+        }else{			
+
+            $getdata = StudentTests::join('generate_tests', 'generate_tests.id', '=', 'student_tests.test_id')
+            ->where("generate_tests.type",$type)
+            ->where("student_tests.user_id",$user_id)
+            ->where("student_tests.status",'C')
+            ->orderBy('student_tests.id','desc')->get();			
+
+            foreach ($getdata as $key => $row) {				
+                $gdata=$row->test;				
+                $question_count = Questions::with(['getsection'])
+                ->selectRaw('section_id,count(id) as total')
+                ->where('test_id',$gdata->id)
+                ->groupBy('section_id')->get();				
+
+                $gdata->question_count=$question_count;				
+                $getdata[$key]->test=$gdata;			
+            }					
+        }    	
+
+        return $this->response("Result List",true,200,$getdata);    
+    }
+
+
+    public function getStudentGivenTestAnswer(Request $request){
+        $student_id = $request->input('student_id');      
+        $test_id = $request->input('test_id');  //this id get test is completed composerily   
+        $section_id = $request->input('section_id');      
+              
+        $this->validate($request, [            
+            'student_id' => 'required',            
+            'test_id' => 'required',     
+            'section_id' => 'required'            
+        ]); 
+
+        $getdata['testResult'] = TestResults::with(['test','subject','user','question_type','question','questionCorrectAnswer','questionStudentAnswer'])
+        ->where("user_id",$student_id)
+        ->where("test_id",$test_id)
+        ->where("section_id",$section_id)
+        ->latest()->paginate(10);
+
+        return $this->response("Student Result with Questions Answers",true,200,$getdata); 
+    }
 
 }
 

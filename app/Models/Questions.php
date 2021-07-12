@@ -28,6 +28,12 @@ class Questions extends Model
     {
         return $this->hasMany('App\Models\Answerdata','question_id','id');
     }
+
+    public function studentanswerdata()
+    {
+        return $this->hasMany('App\Models\StudentsAnswerData','question_id','id');
+    }
+
     public function questiondata()
     {
         return $this->hasMany('App\Models\Questiondata','question_id','id');
