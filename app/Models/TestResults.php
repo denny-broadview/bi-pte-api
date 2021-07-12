@@ -49,4 +49,10 @@ class TestResults extends Model
     {
         return  $this->belongsTo('App\Models\User', 'user_id');
     }
+	
+	public function questions()
+    {
+        return $this->hasMany('App\Models\Questions','id','question_id');
+
+    }
 }

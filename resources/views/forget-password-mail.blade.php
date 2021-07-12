@@ -232,13 +232,12 @@
 	    <div id="wm">
 	        <div class="wm-section1">
 	            <div class="wm-header-text">
-	                <h3>Reset Password</h3>
+	                <h3>Forgot Password</h3>
 	            </div>
 	            <div class="wm-section-content" id="wm-content-head">
 	                <div class="wm-content">
 	                    <p>Hi {{$name}},</p><br/>
-	          			<h3>Please click on below link to reset your password!</h3>
-				        <a href="{{$app_url}}api/reset-password?token={{$verification_token}}" id="text-color">Reset Password</a>
+	          			<h3>Your forgot password OTP is : {{$verification_token}}</h3>				        
 	                </div>
 	            </div>
 	    	</div>

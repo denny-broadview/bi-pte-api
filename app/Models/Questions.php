@@ -35,5 +35,5 @@ class Questions extends Model
 
     public function section(){
         return $this->hasOne('App\Models\Sections','section_id','id');
-    }
+    }				public function getsection(){        return $this->hasOne('App\Models\Sections','id','section_id');    }		public function question_type(){        		return $this->hasOne('App\Models\QuestionTypes','id','question_type_id');    	}
 }

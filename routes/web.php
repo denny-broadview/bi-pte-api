@@ -28,8 +28,11 @@ Route::get('/', function () use ($router) {
 // $router->group(['prefix' => 'api/'], function () use ($router){
 	// $router->post('demo-test',  ['uses' => 'UsersController@demoTest']);
 	Route::post('login', ['uses' => 'UsersController@login']);
-	Route::post('getSubscription', ['uses' => 'SubscriptionsController@getSubscription']);
 	Route::post('forget-password',  ['uses'=>'UsersController@forgetPassword']);
+	Route::post('verify-otp',  ['uses'=>'UsersController@verifyOtp']);
+	Route::post('reset-password',  ['uses'=>'UsersController@resetPassword']);
+	Route::post('signup',  ['uses'=>'UsersController@signup']);
+	
 // });
 $router->group(['middleware'=>'auth'], function () use ($router){
 	Route::post('certificates', ['uses' => 'CertificatesController@getCertificate']);
@@ -39,6 +42,11 @@ $router->group(['middleware'=>'auth'], function () use ($router){
 
 	Route::post('testResults', ['uses' => 'TestResultsController@getTestResult']);
 
+	/*getResult api use for all section with questions,testresult*/
+	Route::post('getSectionResults', ['uses' => 'SectionsController@getSectionTestResult']);
+	
+	Route::post('getStudentResults', ['uses' => 'TestResultsController@getStudentResults']);
+	
 	Route::post('sections', ['uses' => 'SectionsController@getSection']);
 	Route::post('sectionsDesign', ['uses' => 'SectionsController@sectionWiseDesign']);
 

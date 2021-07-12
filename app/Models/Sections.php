@@ -13,10 +13,9 @@ class Sections extends Model
     	'section_name',
     	'image'
     ];
-
     public function question(){
         return $this->hasOne('App\Models\Questions','id','section_id');
     }
-
+	public function taskResult()    {        return $this->hasMany('App\Models\TestResults','section_id','id');    }
     
 }
