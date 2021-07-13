@@ -35,6 +35,8 @@ Route::get('/', function () use ($router) {
 	
 // });
 $router->group(['middleware'=>'auth'], function () use ($router){
+	Route::post('getNotifications', ['uses' => 'NotificationsController@getNotifications']);
+	
 	Route::post('certificates', ['uses' => 'CertificatesController@getCertificate']);
 
 	Route::post('getTest', ['uses' => 'TestsController@getTest']);
@@ -44,13 +46,13 @@ $router->group(['middleware'=>'auth'], function () use ($router){
 
 	/*getResult api use for all section with questions,testresult*/
 	Route::post('getSectionResults', ['uses' => 'SectionsController@getSectionTestResult']);
-	
 	Route::post('getStudentResults', ['uses' => 'TestResultsController@getStudentResults']);
+	Route::post('getStudentGivenTestAnswer', ['uses' => 'TestResultsController@getStudentGivenTestAnswer']);
+	
 	
 	Route::post('sections', ['uses' => 'SectionsController@getSection']);
 	Route::post('sectionsDesign', ['uses' => 'SectionsController@sectionWiseDesign']);
 
 	Route::post('video', ['uses' => 'VideosController@getVideo']);
-
 	Route::post('predictionfiles', ['uses' => 'PredictionFilesController@getPrediction']);
 });

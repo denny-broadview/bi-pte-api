@@ -59,6 +59,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasOne(Institues::class);
     }
 
+    public function studentDetails()
+    {
+        return $this->hasOne(StudentDetails::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Roles::class,'id');
