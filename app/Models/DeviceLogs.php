@@ -11,6 +11,7 @@ class DeviceLogs extends Model
     protected $table = 'device_logs';
     protected $fillable = [
         'user_id',
+        'user_agent',
         'browser_name',
         'device_name',
         'ip_address',

@@ -1,0 +1,39 @@
+PTE API FTP
+==============
+Host name : ftp.zinnfy.com
+Username : pte-api@pte-apis.bi-team.in
+Password : pte-api
+Port : 21
+
+PTE database 
+=================
+Url : https://www.zinnfy.com/phpmyadmin/index.php
+Database: zinnfeut_pte
+Username: zinnfeut_pte
+Password : Ucanwin007))&
+
+
+PTE Web
+==================
+Url : http://pte.bi-team.in/login
+Superadmin
+------------
+Username :superadmin@gmail.com
+Password :12345678
+
+https://danny259442.invisionapp.com/console/PTE-Student-ckp6jvpso0dzo01aq5bsch7jl/ckpxsobbu04ez01bc4eb3fc98/play#project_console
+
+Quiz For Student Test
+=======================
+1.All quation get in "questions" table
+2.Quation more details get in "question_data" table
+3.Quation correct answer get in "answer_data" table
+4.Student given answe of quation get in "student_answer_data" table
+5.All Quation have category and subcategory so category get in "sections" table and subcategory get in "question_designs"
+6.Every quation answer submit record add in "test_results" table
+7.Student can start test then record add in "student_tests" table
+
+
+
+
+
