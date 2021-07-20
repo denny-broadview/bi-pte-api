@@ -32,6 +32,7 @@ Route::get('/', function () use ($router) {
 	Route::post('verify-otp',  ['uses'=>'UsersController@verifyOtp']);
 	Route::post('reset-password',  ['uses'=>'UsersController@resetPassword']);
 	Route::post('signup',  ['uses'=>'UsersController@signup']);
+	Route::post('addStudentTestDetail', ['uses' => 'TestsController@addStudentTestDetail']);
 	
 // });
 $router->group(['middleware'=>'auth'], function () use ($router){
@@ -41,8 +42,9 @@ $router->group(['middleware'=>'auth'], function () use ($router){
 
 	Route::post('getTest', ['uses' => 'TestsController@getTest']);
 	Route::post('getCompletedPendingTest', ['uses' => 'TestsController@getCompletedPendingTest']);
-
+	
 	Route::post('testResults', ['uses' => 'TestResultsController@getTestResult']);
+	Route::post('getQuestions', ['uses' => 'TestsController@getQuestions']);
 
 	/*getResult api use for all section with questions,testresult*/
 	Route::post('getSectionResults', ['uses' => 'SectionsController@getSectionTestResult']);
