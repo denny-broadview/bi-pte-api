@@ -12,7 +12,6 @@ class UserSession extends Model
     protected $fillable = [
     	'user_id',
         'role_id',
-		'status'
-        
+        'created_at'
     ];
 }

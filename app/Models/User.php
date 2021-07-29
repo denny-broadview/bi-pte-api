@@ -66,7 +66,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function role()
     {
-        return $this->belongsTo(Roles::class,'id');
+        return $this->belongsTo(Roles::class,'role_id');
     }
 
     public function userSubscriptions()

@@ -28,14 +28,19 @@ Route::get('/', function () use ($router) {
 // $router->group(['prefix' => 'api/'], function () use ($router){
 	// $router->post('demo-test',  ['uses' => 'UsersController@demoTest']);
 	Route::post('login', ['uses' => 'UsersController@login']);
+	Route::post('logout', ['uses' => 'UsersController@logout']);
 	Route::post('forget-password',  ['uses'=>'UsersController@forgetPassword']);
 	Route::post('verify-otp',  ['uses'=>'UsersController@verifyOtp']);
 	Route::post('reset-password',  ['uses'=>'UsersController@resetPassword']);
 	Route::post('signup',  ['uses'=>'UsersController@signup']);
 	Route::post('addStudentTestDetail', ['uses' => 'TestsController@addStudentTestDetail']);
+	Route::get('states',['uses'=>'UsersController@getStates']);
 	
 // });
 $router->group(['middleware'=>'auth'], function () use ($router){
+	Route::post('profile-update',['uses'=>'UsersController@profileUpdate']);
+	Route::post('premission',['uses'=>'UsersController@getModule']);
+	
 	Route::post('getNotifications', ['uses' => 'NotificationsController@getNotifications']);
 	
 	Route::post('certificates', ['uses' => 'CertificatesController@getCertificate']);

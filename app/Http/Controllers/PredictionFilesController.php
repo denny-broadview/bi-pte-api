@@ -28,7 +28,7 @@ class PredictionFilesController extends Controller
         ]);
         //first check student can show branch admin Prediction files or not 
         $show_video = User::with(['studentDetails'])->where("id",$user_id)->first();
-        if($show_video->studentDetails->show_admin_files == "Y"){
+        // if($show_video->studentDetails->show_admin_files == "Y"){
             $branch_admin_id = $show_video->parent_user_id;
 
             //second check student can show super admin videos or not 
@@ -54,9 +54,9 @@ class PredictionFilesController extends Controller
                    $data = PredictionFiles::latest()->where("user_id",$branch_admin_id)->paginate(10);
                 } 
             }
-        }else{
-            return $this->response("You have not permission to show video",true,200,$data);
-        }
+        // }else{
+        //     return $this->response("You have not permission to show video",true,200,$data);
+        // }
     	
     	return $this->response("PredictionFiles List",true,200,$data);
     }

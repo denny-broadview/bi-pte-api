@@ -32,14 +32,14 @@ class VideosController extends Controller
         $show_video = User::with(['studentDetails'])->where("id",$user_id)->first();
 
         
-        if($show_video->studentDetails->show_admin_videos == "Y"){
+        // if($show_video->studentDetails->show_admin_videos == "Y"){
             $branch_admin_id = $show_video->parent_user_id;
-
+            // dd($branch_admin_id);
             //second check student can show super admin videos or not 
             $branch_show_video = User::with(['institue'])->where("id",$branch_admin_id)->first();
             $superadmin = User::where("role_id",1)->first();
             $superadmin_id = $superadmin->id;
-
+            
             if($branch_show_video->institue->show_admin_videos == "Y"){
                 if($design_id !='' && $section_id != ''){
                     $data = Videos::latest()->where("user_id",$branch_admin_id)->orWhere("user_id",$superadmin_id)->where("section_id",$section_id)->where("design_id",$design_id)->paginate(10);
@@ -55,11 +55,12 @@ class VideosController extends Controller
                     $data = Videos::latest()->where("user_id",$branch_admin_id)->where("section_id",$section_id)->paginate(10);
                 }else{
                     $data = Videos::latest()->where("user_id",$branch_admin_id)->paginate(10);
+                    
                 }
             }
-        }else{
-            return $this->response("You have not permission to show video",true,200,$data);
-        }
+        // }else{
+        //     return $this->response("You have not permission to show video",true,200,$data);
+        // }
     	
         
     	return $this->response("Video List",true,200,$data);
